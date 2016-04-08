@@ -1,0 +1,14 @@
+---
+en:
+  kill: was killed by
+  cannotjoin: You can not join this game.
+  seconds: seconds
+  won: won a game!
+  deathmatchminutes: minutes to deathmatch!
+  deathmatchseconds: seconds to deathmatch!
+  chestrefill: The chests have been refilled!
+  remainingminutes: minutes remaining!
+  remainingseconds: seconds remaining!
+  nowinner: No winner this time!
+  moreplayers: More players needed!
+...
