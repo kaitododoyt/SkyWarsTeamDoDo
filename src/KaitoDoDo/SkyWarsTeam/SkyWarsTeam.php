@@ -94,14 +94,14 @@ class SkyWarsTeam extends PluginBase implements Listener {
         }
 	
 	public function onDeath(PlayerDeathEvent $event){
-        $jugador = $event->getEntity();
+	$jugador = $event->getEntity();
+        $spawn = $this->getServer()->getDefaultLevel()->getSafeSpawn();
+        $this->getServer()->getDefaultLevel()->loadChunk($spawn->getX(), $spawn->getZ());
+        $jugador->teleport($spawn,0,0);
 	$level = $jugador->getLevel();
         $cause = $jugador->getLastDamageCause();
-        $spawn = $this->getServer()->getDefaultLevel()->getSafeSpawn();
-        $jugador->teleport($spawn,0,0);
         $name = $jugador->getName();
         $jugador->setNameTag($name);
-        $jugador->getInventory()->clearAll();
 	$jugador->removeAllEffects();
         $statistic = new Config($this->getDataFolder() . "/statistic.yml", Config::YAML);
 	$stats = $statistic->get($jugador->getName());
