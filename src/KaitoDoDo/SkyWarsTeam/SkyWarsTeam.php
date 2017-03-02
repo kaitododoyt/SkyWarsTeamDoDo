@@ -29,6 +29,7 @@ use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\entity\Effect;
 use pocketmine\tile\Chest;
+use pocketmine\event\entity\EntityLevelChangeEvent;
 use pocketmine\inventory\ChestInventory;
 use onebone\economyapi\EconomyAPI;
 
@@ -134,6 +135,24 @@ class SkyWarsTeam extends PluginBase implements Listener {
                 }
                 }
 	}
+	
+	public function onChangeLevel(EntityLevelChangeEvent $event)
+        {
+            $pl = $event->getEntity();
+            if($pl instanceof Player)
+            {
+                $lev = $event->getOrigin();
+                if($lev instanceof Level && in_array($lev->getFolderName(),$this->arenas))
+		{
+                    $pl->setGamemode(0);
+                    $level = $lev->getFolderName();
+                    $pl->extinguish();
+                    $pl->removeAllEffects();
+                    $pl->getInventory()->clearAll();
+                    $pl->setNameTag($pl->getName());
+                }
+            }
+        }
         
         public function onMove(PlayerMoveEvent $event)
 	{
@@ -183,6 +202,8 @@ class SkyWarsTeam extends PluginBase implements Listener {
 			$event->setCancelled(false);
 		}
 	}
+	
+	
 	
 	public function onBlockPlace(BlockPlaceEvent $event)
 	{
